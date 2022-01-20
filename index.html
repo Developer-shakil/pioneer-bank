@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Pioneer Bank</title>
+  </head>
+  <body>
+    
+     <section id="login-area">
+         <div class="container">
+             <h1 class="text-center mt-5">Welcome to Pioneer Bank</h1>
+             <div class="submit-area">
+                 <div>
+                     <h4>Login</h4>
+                   <div class="mb-3">
+                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" required>
+                   </div>
+                   <div class="mb-3">
+                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password" required>
+                   </div>
+                   <button id="login" class="btn btn-success">Enter</button>
+                 </div>
+             </div>
+         </div>
+     </section>
+
+     <section id="transection-area" class="pt-5 mt-5">
+         <div class="container">
+             <div class="row">
+                 <div class="col-lg-4">
+                     <div class="deposit mr-4 p-4 text-white rounded">
+                         <h5>Deposit</h5>
+                         <h2>$<span id="current-deposit">00</span></h2>
+                     </div>
+                 </div>
+                 <div class="col-lg-4 ">
+                     <div class="withdraw mx-2 p-4 text-white rounded">
+                         <h5>Withdraw</h5>
+                         <h2>$<span id="current-withdraw">00</span></h2>
+                     </div>
+                 </div>
+                 <div class="col-lg-4 ">
+                     <div class="balance ml-4 p-4 text-white rounded">
+                         <h5>Balance</h5>
+                         <h2>$<span id="current-balance">1240</span></h2>
+                     </div>
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="col-lg-6">
+                     <div class="submit-area mr-2">
+                         <h4>Deposit</h4>
+                         <input type="text" name="" id="depositAmount" class="form-control mt-2" placeholder="$ Amount you want to deposit">
+                         <button id="deposit-btn" class="btn btn-success mt-4">Deposit</button>
+                        </div>
+                 </div>
+                 <div class="col-lg-6">
+                     <div class="submit-area ml-2">
+                         <h4>Withdraw</h4>
+                         <input type="text" name="" id="withdrawAmount" class="form-control mt-2" placeholder="$ Amount you want to Withdraw">
+                         <button id="withdraw-btn" class="btn btn-success mt-4">Withdraw</button>
+                        </div>
+                 </div>
+             </div>
+         </div>
+     </section>
+
+    <!-- Optional JavaScript -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+
+    <script>
+        //Login button Event Handler
+        const loginButton = document.getElementById("login");
+        loginButton.addEventListener("click", function(){
+           const loginArea = document.getElementById("login-area");
+           loginArea.style.display = "none";
+           const transectionArea = document.getElementById("transection-area");
+           transectionArea.style.display = "block";
+        });
+
+        //Deposit Button Event Handler
+
+        const addDepositBtn = document.getElementById("deposit-btn");
+         addDepositBtn.addEventListener("click", function(){
+             const depositNumber = getInputNumber("depositAmount");
+
+             updateSpanText("current-deposit",depositNumber);
+             updateSpanText("current-balance",depositNumber);
+
+            document.getElementById("depositAmount").value = "";
+        });
+
+        
+
+        function updateSpanText(id,depositNum){
+            const current = document.getElementById(id).innerText;
+             const currentNumber = parseFloat(current);
+             const total = depositNum+ currentNumber;
+             document.getElementById(id).innerText = total;
+        }
+ 
+        function getInputNumber(id){
+            const amount = document.getElementById(id).value;
+            const amountNumber = parseFloat(amount);
+            return amountNumber;
+        }
+
+        //Withdraw Button Event Handler
+
+        const addWithdrawBtn = document.getElementById("withdraw-btn");
+          addWithdrawBtn.addEventListener("click", function(){
+
+             const withdrawNumber = getInputNumber("withdrawAmount");
+
+              updateSpanText("current-withdraw", withdrawNumber);
+              updateSpanText("current-balance",-1 * withdrawNumber);
+
+              document.getElementById("withdrawAmount").value = "";
+          });
+    </script>
+    
+  </body>
+</html>
